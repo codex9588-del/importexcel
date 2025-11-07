@@ -19,12 +19,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseAuthorization();
-
-// Enable static files
+// Enable static files and default files - order matters!
+app.UseDefaultFiles();  // This must come before UseStaticFiles
 app.UseStaticFiles();
-app.UseDefaultFiles();
 
+app.UseAuthorization();
 app.MapControllers();
 
 // Database already exists - no need to create
