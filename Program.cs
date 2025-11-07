@@ -7,6 +7,22 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Configure database connection based on environment
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+if (builder.Environment.IsProduction())
+{
+    // Use environment variables in production
+    connectionString = string.Format(
+        connectionString,
+        Environment.GetEnvironmentVariable("DATABASE_HOST") ?? "localhost",
+        Environment.GetEnvironmentVariable("DATABASE_NAME") ?? "postgres",
+        Environment.GetEnvironmentVariable("DATABASE_USER") ?? "postgres",
+        Environment.GetEnvironmentVariable("DATABASE_PASSWORD") ?? "",
+        Environment.GetEnvironmentVariable("DATABASE_PORT") ?? "5432"
+    );
+}
+builder.Configuration["ConnectionStrings:DefaultConnection"] = connectionString;
+
 // Add dependency injection
 builder.Services.AddScoped<IDynamicImportService, DynamicImportService>();
 
