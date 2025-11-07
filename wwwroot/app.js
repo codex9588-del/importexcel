@@ -1,6 +1,13 @@
 // DOM Elements
 const uploadArea = document.getElementById('uploadArea');
 const fileInput = document.getElementById('fileInput');
+
+// Database environment toggle function
+function toggleDatabaseConfig() {
+    const environment = document.getElementById('dbEnvironment').value;
+    document.getElementById('localDbConfig').style.display = environment === 'local' ? 'block' : 'none';
+    document.getElementById('productionDbConfig').style.display = environment === 'production' ? 'block' : 'none';
+}
 const fileInfo = document.getElementById('fileInfo');
 const fileName = document.getElementById('fileName');
 const uploadForm = document.getElementById('uploadForm');
@@ -170,12 +177,21 @@ loadConfigBtn.addEventListener('click', async () => {
 });
 
 testConnectionBtn.addEventListener('click', async () => {
-    const config = {
+    const environment = document.getElementById('dbEnvironment').value;
+    const config = environment === 'production' ? {
+        host: document.getElementById('prodDbHost').value || document.getElementById('dbHost').value,
+        port: document.getElementById('prodDbPort').value || document.getElementById('dbPort').value,
+        username: document.getElementById('prodDbUsername').value || document.getElementById('dbUsername').value,
+        password: document.getElementById('prodDbPassword').value || document.getElementById('dbPassword').value,
+        database: 'postgres',
+        environment: 'production'
+    } : {
         host: document.getElementById('dbHost').value,
         port: document.getElementById('dbPort').value,
         username: document.getElementById('dbUsername').value,
         password: document.getElementById('dbPassword').value,
-        database: 'postgres'
+        database: 'postgres',
+        environment: 'local'
     };
     
     try {
