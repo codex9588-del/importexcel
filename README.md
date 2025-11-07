@@ -176,6 +176,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [Font Awesome](https://fontawesome.com/) for icons
 
 ## 📞 Support
++91 9461459588
+yashjanwa88@gmail.com
 
 If you have any questions or issues, please open an issue on GitHub.
 
