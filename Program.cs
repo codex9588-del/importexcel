@@ -13,7 +13,7 @@ if (builder.Environment.IsProduction())
 {
     // Use environment variables in production
     connectionString = string.Format(
-        connectionString,
+        connectionString ?? "Host={0};Database={1};Username={2};Password={3};Port={4}",
         Environment.GetEnvironmentVariable("DATABASE_HOST") ?? "localhost",
         Environment.GetEnvironmentVariable("DATABASE_NAME") ?? "postgres",
         Environment.GetEnvironmentVariable("DATABASE_USER") ?? "postgres",
